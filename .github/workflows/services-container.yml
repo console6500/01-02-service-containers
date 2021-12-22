@@ -30,7 +30,7 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies and Run the test
         run: |
-          pip install -r requirements.txt
+          pip install psycopg2-binary
           python test-db-service-conntection.py
         env:
           DATABASE_HOST: postgres
