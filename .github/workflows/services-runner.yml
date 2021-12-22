@@ -1,4 +1,4 @@
-name: services
+name: Access DB by localhost port
 on:
   push:
     branches: [ main ]

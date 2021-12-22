@@ -1,4 +1,4 @@
-name: services
+name: Access DB host by service name
 on:
   push:
     branches: [ main ]
