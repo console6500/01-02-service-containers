@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   build:
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:14.1
@@ -21,7 +22,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -31,3 +31,5 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run the test
         run: python test-db-service-conntection.py
+        env:
+          DATABASE_HOST: localhost
