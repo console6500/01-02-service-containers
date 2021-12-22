@@ -11,8 +11,8 @@ jobs:
       postgres:
         image: postgres:14.1
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: testing
+          POSTGRES_PASSWORD: testing
           POSTGRES_DB: testing
         ports:
           - 5432:5432
@@ -24,5 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Pip freeze
+        run: pip freeze
