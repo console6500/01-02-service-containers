@@ -37,10 +37,13 @@ print("Connection established to: ", data)
 cursor.execute("DROP TABLE IF EXISTS EMPLOYEE")
 
 # create the employee table
-sql ='''CREATE TABLE EMPLOYEE(
-   FIRST_NAME CHAR(60) NOT NULL,
-   LAST_NAME CHAR(60) NOT NULL,
-)'''
+sql = '''
+    CREATE TABLE EMPLOYEE(
+        id SERIAL,
+        FIRST_NAME CHAR(60) NOT NULL,
+        LAST_NAME CHAR(60) NOT NULL
+    )
+'''
 
 cursor.execute(sql)
 
