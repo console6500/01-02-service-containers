@@ -74,8 +74,6 @@ for employee in employees:
     print("LAST_NAME  = {last_name}\n\n")
 
 # close the database connection.
-finally:
-    if connection:
-        cursor.close()
-        connection.close()
-        print("DB connection is closed")
+cursor.close()
+connection.close()
+print("DB connection is closed")
