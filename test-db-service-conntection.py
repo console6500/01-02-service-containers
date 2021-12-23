@@ -66,11 +66,12 @@ cursor.execute(sql)
 employees = cursor.fetchall()
 
 # print the data for 10 employees
-print("{:<8} {:<30} {:<30}".format('ID', 'FIRST_NAME', 'LAST_NAME'))
+print("{:<3} {:<20} {:<20}".format('ID', 'FIRST_NAME', 'LAST_NAME'))
+print("{:<3} {:<20} {:<20}".format('--', '----------', '---------'))
 
 for employee in employees[0:10]:
     (id_number, first_name, last_name) = employee
-    print("{:<8} {:<30} {:<30}".format(id_number, first_name, last_name))
+    print("{:<3} {:<20} {:<20}".format(id_number, first_name, last_name))
 
 # close the database connection.
 cursor.close()
