@@ -5,6 +5,13 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+
+env:
+  DATABASE_NAME: testing
+  DATABASE_USER: testing
+  DATABASE_PASS: testing
+  DATABASE_PORT: 5432
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,9 +19,9 @@ jobs:
       postgres:
         image: postgres:14.1
         env:
-          POSTGRES_USER: testing
-          POSTGRES_PASSWORD: testing
-          POSTGRES_DB: testing
+          POSTGRES_USER: ${{ env.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ env.DATABASE_PASS }}
+          POSTGRES_DB: ${{ env.DATABASE_NAME }}
         ports:
           - 5432:5432
         options: >-
@@ -33,3 +40,7 @@ jobs:
         run: python test-db-service-conntection.py
         env:
           DATABASE_HOST: localhost
+          DATABASE_NAME: ${{ env.DATABASE_NAME }}
+          DATABASE_USER: ${{ env.DATABASE_USER }}
+          DATABASE_PASS: ${{ env.DATABASE_PASS }}
+          DATABASE_PORT: ${{ env.DATABASE_PORT }}
