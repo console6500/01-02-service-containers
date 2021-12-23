@@ -50,7 +50,7 @@ connection.commit()
 print("Table created successfully........")
 
 # generate test data for 100 employees
-print("Generating test data for 100 employees")
+print("Generating test data for 5 employees")
 fake = Faker()
 
 for i in range(0,100):
@@ -69,9 +69,9 @@ employees = cursor.fetchall()
 # print the data
 for employee in employees:
     (id_number, first_name, last_name) = employee
-    print("ID         = {id_number}")
-    print("FIRST_NAME = {first_name}")
-    print("LAST_NAME  = {last_name}\n\n")
+    print(f"ID         = {id_number}")
+    print(f"FIRST_NAME = {first_name}")
+    print(f"LAST_NAME  = {last_name}\n\n")
 
 # close the database connection.
 cursor.close()
