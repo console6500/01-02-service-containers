@@ -3,6 +3,7 @@ import sys
 import psycopg2
 from psycopg2 import OperationalError
 from faker import Faker
+from tabulate import tabulate
 
 
 # get the database connection details from the environment
@@ -50,7 +51,7 @@ connection.commit()
 print("Table created successfully........")
 
 # generate test data for 100 employees
-print("Generating test data for 5 employees")
+print("Generating test data for 100 employees")
 fake = Faker()
 
 for i in range(0,100):
@@ -61,17 +62,13 @@ for i in range(0,100):
     cursor.execute(sql)
     connection.commit()
 
-# read the data
+# read the data for the first 10 employees
 sql = "SELECT * FROM EMPLOYEES"
 cursor.execute(sql)
 employees = cursor.fetchall()
 
-# print the data
-for employee in employees:
-    (id_number, first_name, last_name) = employee
-    print(f"ID         = {id_number}")
-    print(f"FIRST_NAME = {first_name}")
-    print(f"LAST_NAME  = {last_name}\n\n")
+# print the data using the tabulate function
+print(tabulate([employees[0:10]], headers=["ID", "FIRST_NAME", "LAST_NAME"]))
 
 # close the database connection.
 cursor.close()
