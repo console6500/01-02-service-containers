@@ -1,3 +1,11 @@
+'''
+This script connects to a database, creates a table named 'EMPLOYEES',
+and generates 100 rows of data in the table.
+
+Configuration for connecting to the target Postgres DB should be given
+as environment variables including database name, user, password, port,
+and the name of the host where the database is running.
+'''
 import os
 import sys
 import psycopg2
@@ -11,8 +19,9 @@ DATABASE_PASS = os.getenv('DATABASE_PASS')
 DATABASE_HOST = os.getenv('DATABASE_HOST')
 DATABASE_PORT = os.getenv('DATABASE_PORT')
 
+
+# connect to the database
 try:
-    # connect to the database
     connection = psycopg2.connect(
             database=DATABASE_NAME,
             user=DATABASE_USER,
@@ -20,6 +29,8 @@ try:
             host=DATABASE_HOST,
             port=DATABASE_PORT,
             )
+
+# report any errors if the connection fails
 except OperationalError as error:
     print(f"Unable to connect to the database {DATABASE_NAME} on port {DATABASE_PORT}")
     sys.exit(error)
@@ -32,7 +43,7 @@ cursor.execute("select version()")
 data = cursor.fetchone()
 print("Connection established to: ", data)
 
-# drop the employee table
+# drop the employee table if it exists
 cursor.execute("DROP TABLE IF EXISTS EMPLOYEES")
 
 # create the employee table
@@ -52,9 +63,9 @@ print("Table created successfully........")
 print("Generating test data for 100 employees")
 fake = Faker()
 
-for i in range(0,100):
+for i in range(0, 100):
     first_name = fake.first_name()
-    last_name  = fake.last_name()
+    last_name = fake.last_name()
 
     sql = f"INSERT INTO EMPLOYEES(id,FIRST_NAME,LAST_NAME) VALUES(DEFAULT,'{first_name}','{last_name}');"
     cursor.execute(sql)
