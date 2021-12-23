@@ -56,7 +56,7 @@ for i in range(0,100):
     first_name = fake.first_name()
     last_name  = fake.last_name()
 
-    sql = f"INSERT INTO EMPLOYEES(id,FIRST_NAME,LAST_NAME) VALUES(DEFAULT,{first_name},{last_name});"
+    sql = f"INSERT INTO EMPLOYEES(id,FIRST_NAME,LAST_NAME) VALUES(DEFAULT,'{first_name}','{last_name}');"
     cursor.execute(sql)
     conn.commit()
 
