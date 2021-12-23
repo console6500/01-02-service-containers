@@ -14,7 +14,7 @@ DATABASE_PORT = os.getenv('DATABASE_PORT')
 
 try:
     # connect to the database
-    conn = psycopg2.connect(
+    connection = psycopg2.connect(
             database=DATABASE_NAME,
             user=DATABASE_USER,
             password=DATABASE_PASS,
@@ -26,7 +26,7 @@ except OperationalError as error:
     sys.exit(error)
 
 # create a cursor object and get the database version information
-cursor = conn.cursor()
+cursor = connection.cursor()
 cursor.execute("select version()")
 
 # fetch a single row using fetchone() method.
@@ -46,10 +46,11 @@ sql = '''
 '''
 
 cursor.execute(sql)
-conn.commit()
+connection.commit()
 print("Table created successfully........")
 
 # generate test data for 100 employees
+print("Generating test data for 100 employees")
 fake = Faker()
 
 for i in range(0,100):
@@ -58,13 +59,23 @@ for i in range(0,100):
 
     sql = f"INSERT INTO EMPLOYEES(id,FIRST_NAME,LAST_NAME) VALUES(DEFAULT,'{first_name}','{last_name}');"
     cursor.execute(sql)
-    conn.commit()
+    connection.commit()
 
 # read the data
 sql = "SELECT * FROM EMPLOYEES"
 cursor.execute(sql)
-conn.commit()
+employees = cursor.fetchall()
 
-# close the connection to the database
-conn.close()
+# print the data
+for employee in employees:
+    (id_number, first_name, last_name) = employee
+    print("ID         = {id_number}")
+    print("FIRST_NAME = {first_name}")
+    print("LAST_NAME  = {last_name}\n\n")
 
+# close the database connection.
+finally:
+    if connection:
+        cursor.close()
+        connection.close()
+        print("DB connection is closed")
